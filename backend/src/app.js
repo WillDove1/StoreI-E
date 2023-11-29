@@ -5,15 +5,19 @@ import cors from 'cors';
 
 import authRoutes from './routes/auth.routes.js'
 import productsRoutes from './routes/products.routes.js';
+import employeesRoutes from './routes/employee.routes.js';
 
 const app = express();
 
-app.use(cors({ credentials: true })); // Corrección: Elimina el uso duplicado de "app.use"
+app.use(cors({ 
+    origin: 'http://localhost:5173',
+    credentials: true })); // Corrección: Elimina el uso duplicado de "app.use"
 app.use(morgan('dev'));
 app.use(express.json());
 app.use(cookieParser());
 
 app.use('/api/', authRoutes);
 app.use('/api/', productsRoutes);
+app.use('/api/',employeesRoutes);
 
 export default app;

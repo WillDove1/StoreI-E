@@ -1,29 +1,39 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom"
-import RegisterPage from './pages/RegisterPage'
-import LoginPage from "./pages/LoginPage"
-import { AuthProvider } from "./context/AuthContext"
-import HomePage from './pages/HomePage'
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import RegisterPage from './pages/RegisterPage';
+import LoginPage from './pages/LoginPage';
+import { AuthProvider } from "./context/AuthContext";
+import HomePage from "./pages/HomePage";
 import ProfilePage from "./pages/ProfilePage"
-import ProductsFormPage from "./pages/ProductsFormPage"
+import ProductsPage from "./pages/ProductsPage"
+import ProductsFormPage from "./pages/ProductsFormPage";
+import ProtectedRoute from "./ProtectedRoute";
+import { ProductsProvider } from "./context/ProductsContext";
+import Navbar from './components/Navbar';
 
-function App(){
-  return(
+function App() {
+  return (
     <AuthProvider>
-      <BrowserRouter>
-        <Routes>
-          <Route path='/' element={<HomePage/>}/>
-          <Route path='/login' element={<LoginPage/>}/>
-          <Route path='/register' element={<RegisterPage/>}/>
+      <ProductsProvider>
+        <BrowserRouter>
+          <main className="container mx-auto px-10" >
+          <Navbar></Navbar>
+            <Routes>
+              <Route path='/' element={<HomePage />} />
+              <Route path='/login' element={<LoginPage />} />
+              <Route path='/register' element={<RegisterPage />} />
 
-          <Route path='/profile' element={<ProfilePage/>}/>
-          <Route path='/products' element={<ProductsPage/>}/>
-          <Route path='/add-product' element={<ProductsFormPage/>}/>
-          <Route path='/product/:id' element={<ProductsFormPage/>}/>
-
-        </Routes>
-      </BrowserRouter>
+              <Route element={<ProtectedRoute />}>
+                <Route path='/profile' element={<ProfilePage />} />
+                <Route path='/products' element={<ProductsPage />} />
+                <Route path='/add-product' element={<ProductsFormPage />} />
+                <Route path='/product/:id' element={<ProductsFormPage />} />
+              </Route>
+            </Routes>
+          </main>
+        </BrowserRouter>
+      </ProductsProvider>
     </AuthProvider>
-  )
+  );
 }
 
-export default App
+export default App;
