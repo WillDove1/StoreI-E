@@ -1,6 +1,9 @@
 import React from 'react'
+import { useProducts } from '../context/ProductsContext'
+import {Link} from 'react-router-dom'
 
 function ProductCard( {product}){
+    const {deleteProduct} = useProducts()
     return(
         <div className='bg-zinc-800 max-w-md w-full p-10 rounded-md'>
             <header className='flex justify-between'> 
@@ -8,11 +11,14 @@ function ProductCard( {product}){
                 <div className='flex gap-x-2 items-center'>
                     <button
                         onClick={()=>{
-                            console.log(product._id)
+                            //console.log(product._id)
+                            deleteProduct(product._id);
                         }}
 
                     >Delete</button>
-                    <button>Edit</button>
+                    <Link to={'/product/'+product._id}>
+                        Editar
+                    </Link>
 
                 </div>
             </header>

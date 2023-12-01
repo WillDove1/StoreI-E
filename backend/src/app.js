@@ -2,22 +2,27 @@ import express from 'express';
 import morgan from 'morgan';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
-
-import authRoutes from './routes/auth.routes.js'
-import productsRoutes from './routes/products.routes.js';
-import employeesRoutes from './routes/employee.routes.js';
+import authRoutes from './routes/auth.routes.js';
+import productRoutes from './routes/products.routes.js';
+import employeeRoutes from './routes/employee.routes.js';
+import providerRoutes from './routes/provider.routes.js'
 
 const app = express();
 
-app.use(cors({ 
+// Configuración de CORS
+app.use(cors({
     origin: 'http://localhost:5173',
-    credentials: true })); // Corrección: Elimina el uso duplicado de "app.use"
+    credentials: true
+}));
+
 app.use(morgan('dev'));
 app.use(express.json());
 app.use(cookieParser());
 
+// Rutas
 app.use('/api/', authRoutes);
-app.use('/api/', productsRoutes);
-app.use('/api/',employeesRoutes);
+app.use('/api/', productRoutes);
+app.use('/api/', employeeRoutes);
+app.use('/api/', providerRoutes);
 
 export default app;

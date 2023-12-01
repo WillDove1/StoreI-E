@@ -1,14 +1,36 @@
 import {useForm} from 'react-hook-form';
 import {useProducts} from '../context/ProductsContext';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useEffect } from 'react';
 
 function ProductsFormPage() {
-    const {register,handleSubmit} = useForm();
-    const {products, createProduct} = useProducts();
+    const {register,handleSubmit, setValue} = useForm();
+    const {products, createProduct, getProduct, updateProduct} = useProducts();
+    const navigate = useNavigate();
+    const params = useParams();
     console.log(products);
 
+    useEffect(()=>{
+        async function loadProduct(){
+            if(params.id){
+                const product = await getProduct(params.id);
+                setValue('name',product.name);
+                setValue('price',product.price);
+                setValue('year',product.year);
+                
+            }
+        }
+        loadProduct();
+    }, [])
+
     const onSubmit = handleSubmit( (data)=>{
-        //console.log(data);
-        createProduct(data);
+        if(params.id){
+            updateProduct(params.id, data);
+        }else{
+            createProduct(data);
+        }
+        navigate('/products');
+        
     })
     return (
         <div className='bg-zinc-800 max-w-md w-full p-10 rounded-md'>
