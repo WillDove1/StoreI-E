@@ -1,6 +1,7 @@
 import React from 'react'
 import { useProducts } from '../context/ProductsContext'
 import {Link} from 'react-router-dom'
+import { IoTrashBinSharp, IoPencilSharp} from 'react-icons/io5'
 
 function ProductCard( {product}){
     const {deleteProduct} = useProducts()
@@ -9,15 +10,21 @@ function ProductCard( {product}){
             <header className='flex justify-between'> 
                 <h1 className='text-1xl font-bold'>{product.name}</h1>
                 <div className='flex gap-x-2 items-center'>
-                    <button
+                    <button className='bg-red-500 hover:bg-red-600 
+                    text-white px-4 py-2 rounded-lg'
                         onClick={()=>{
                             //console.log(product._id)
                             deleteProduct(product._id);
                         }}
 
-                    >Delete</button>
-                    <Link to={'/product/'+product._id}>
-                        Editar
+                    >
+                        <IoTrashBinSharp/>
+                    </button>
+                    <Link to={'/product/'+product._id}
+                        className='bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg' 
+                    >
+
+                        <IoPencilSharp/>
                     </Link>
 
                 </div>
