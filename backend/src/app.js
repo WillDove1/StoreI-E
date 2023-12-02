@@ -13,7 +13,8 @@ const app = express();
 app.use(cors({
     origin: [
         'http://localhost:5173',
-        'https://frontend-d4if.onrender.com'
+        'https://frontend-d4if.onrender.com',
+        'https://apiproductos-dj0d.onrender.com'
     ],
     
     credentials: true
