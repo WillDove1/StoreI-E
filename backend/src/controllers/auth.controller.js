@@ -22,10 +22,10 @@ export const register = async (req, res) => {
 
         const userSaved = await newUser.save();
         const token = await createAccessToken({ id: userSaved._id });
-        res.status(200).cookie('token', token, {
-            //secure: true,
+        res.cookie('token', token, {
+            secure: true,
             httpOnly: true,
-            sameSite: 'lax'
+            sameSite: 'none'
             
         });
         res.json({
@@ -53,10 +53,10 @@ export const login = async (req, res) => {
             return res.status(400).json({ message: ['Contraseña no coincide'] });
         }
         const token = await createAccessToken({ id: userFound._id });
-        res.status(200).cookie('token', token, {
-            //secure: true,
+        res.cookie('token', token, {
+            secure: true,
             httpOnly: true,
-            sameSite: 'lax'
+            sameSite: 'none'
             
         });
         res.json({
